@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body onLoad="loadRecipes()" style="background-color: #FBE9E7">
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper z-depth-1">
+                    <a style="margin-left: 16px;" class="brand-logo">RecipeBox <span style="font-size: 19px; margin-left: 5px;">A simple portion counter and recipe viewer!</span></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li style="margin-right: 20px;">by <b><span style="font-style: italic">Gabriel A. Montalvo Rivera</span></b> & <b><span style="font-style: italic">Bery Joel Lugo Acevedo</span></b></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div id="recipe-container"></div>
+
+        <!-- Prompt -->
+        <div class="modal" id="prompt">
+            <div class="modal-content">
+                <label style="font-size: 16px;">Number of people to be served:</label><br>
+                <p class="range-field">
+                    <input type="range" id="peopleAmount" min="1" max="100"/>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-calc" onClick="getPortionCount();" class="modal-trigger modal-action modal-close waves-effect waves-green btn-flat">Calculate</button>
+            </div>
+        </div><script>document.getElementById("peopleAmount").defaultValue = 1</script>
+
+        <!-- Recipe procedure -->
+        <div class="modal" id="procedure">
+            <div class="modal-content">
+                <h6>Procedure:</h6><br>
+                <p id="procedure-content"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-calc" class="modal-action modal-close waves-effect waves-green btn-flat">Continue</button>
+            </div>
+        </div>
+
+        <!-- Counter results -->
+        <div class="modal" id="counter-results">
+            <div class="modal-content">
+                <h6 id="result-title"></h6><br>
+            </div>
+            <div id="available_amounts" class="collection"></div>
+            <div class="modal-footer">
+                <button id="btn-calc" class="modal-action modal-close waves-effect waves-green btn-flat">Continue</button>
+            </div>
+        </div>
+
+        <!-- Information button -->
+        <div class="fixed-action-btn" style="bottom: 20px; right: 29px;">
+            <a id="information" href="javascript:void(0);" onClick="Materialize.toast('This is a class project (COMP 3400 - Software Engineering). Not intended to be used for anything else.', 4000, 'rounded')"><i class="material-icons black-text">announcement</i></a>
+        </div>
+
+        <footer style="margin-top: 70px;"></footer>
+
+
+        <!-- Recipe card template -->
+        <script id="recipe-template" type="x-tmpl-mustache">
+            <div id="{{card_id}}" class="card z-depth-2" style="margin: auto; width: 60%; margin-top: 4%;">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src='{{ recipe_picture }}'/>
+                    <span class="card-title activator">{{ recipe_title }}</span>
+                </div>
+                <div class="card-content">
+                    <p>{{ recipe_desc }}</p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect waves-light btn activator" style="width: 33%; background-color: #78909C"><i class="material-icons left">kitchen</i>Ingredients</a>
+                    <a class="waves-effect waves-light btn" value="{{ recipe_procedure }}" onClick="showProcedure(this);" style="width: 33%; background-color: #EF5350"><i class="material-icons left">library_books</i>Procedure</a>
+                    <a class="waves-effect waves-light btn" value="{{ s_recipe_ingredients }}" onClick="showPrompt(this);" style="width: 33%; background-color: #BA68C8"><i class="material-icons left">people</i>Portion Count</a>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title">{{ recipe_title }}<i class="material-icons right">close</i></span>
+                    <p>Ingredients: </p>
+                    {{ #recipe_ingredients }}
+                        <div class="col s12 m3">
+                           <div class="card-panel" style="text-align: center;">
+                               <span class="card-title">{{ name }} (<b>{{ qty }} {{ unit }}</b>)</span>
+                            </div>
+                        </div>
+                    {{ /recipe_ingredients }}
+                </div>
+            </div>
+        </script>
+
+        <!-- Scripts -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+        <script type="text/javascript" src="dist/mustache.min.js"></script>
+
+        <!-- Import REST API calls -->
+        <script type="text/javascript" src="js/recipe-api.js"></script>
+    </body>
+</html>
