@@ -4,8 +4,6 @@
     <head>
         <!--Import Google Icon Font-->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!-- Icons fallback -->
-        <link href="style.css" rel="stylesheet">
         <!--Import materialize.css-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
         <!--Let browser know website is optimized for mobile-->
@@ -80,9 +78,9 @@
                     <p>{{ recipe_desc }}</p>
                 </div>
                 <div class="card-action">
-                    <a class="waves-effect waves-light btn activator" style="width: 33%; background-color: #78909C"><i class="material-icons left">kitchen</i>Ingredients</a>
-                    <a class="waves-effect waves-light btn" value="{{ recipe_procedure }}" onClick="showProcedure(this);" style="width: 33%; background-color: #EF5350"><i class="material-icons left">library_books</i>Procedure</a>
-                    <a class="waves-effect waves-light btn" value="{{ s_recipe_ingredients }}" onClick="showPrompt(this);" style="width: 33%; background-color: #BA68C8"><i class="material-icons left">people</i>Portion Count</a>
+                    <a class="waves-effect waves-light btn activator" style="background-color: #78909C"><i class="material-icons left">kitchen</i>Ingredients</a>
+                    <a class="waves-effect waves-light btn" value="{{ recipe_procedure }}" onClick="showProcedure(this);" style="background-color: #EF5350"><i class="material-icons left">library_books</i>Procedure</a>
+                    <a class="waves-effect waves-light btn" value="{{ s_recipe_ingredients }}" onClick="showPrompt(this);" style="background-color: #BA68C8"><i class="material-icons left">people</i>Portion Count</a>
                 </div>
                 <div class="card-reveal">
                     <span class="card-title">{{ recipe_title }}<i class="material-icons right">close</i></span>
